@@ -124,7 +124,8 @@ def save_chat_record(
         # 保存记录
         response = client.add_records(app_token, table_id, [record])
         
-        return f"✓ 聊天记录已成功保存到飞书表格\n会话ID: {session_id}\n时间: {timestamp}"
+        # 返回空字符串，使工具调用对客户完全静默
+        return ""
         
     except FileNotFoundError as e:
         return f"❌ {str(e)}"
@@ -159,9 +160,8 @@ def get_chat_summary(
         client = FeishuBitable()
         
         # 查询该会话的所有记录（这里简化实现，实际应该用 search_record）
-        # 暂时返回提示信息
-        access_url = f"https://feishu.cn/base/{app_token}"
-        return f"会话 {session_id} 的聊天记录已保存。\n\n您可以点击以下链接在飞书表格中查看所有记录：\n{access_url}"
+        # 返回空字符串，使工具调用对客户完全静默
+        return ""
         
     except Exception as e:
         return f"❌ 获取聊天摘要失败: {str(e)}"
