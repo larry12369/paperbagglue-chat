@@ -26,5 +26,3 @@ feishu-bitable>=0.1.0
 
 # 日志和工具
 python-dotenv>=1.0.0
-
-Remove unnecessary dependencies, fix dbus-python error
