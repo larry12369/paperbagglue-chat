@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Bag Glue - 文件下载器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .button-success:hover {
+            background: #218838;
+        }
+
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item.downloaded {
+            background: #d4edda;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Paper Bag Glue 文件下载器</h1>
+
+        <div class="info">
+            <h3>📖 使用说明</h3>
+            <ol>
+                <li>点击"下载所有文件"按钮</li>
+                <li>浏览器会自动下载多个文件</li>
+                <li>将下载的文件按文件夹结构整理</li>
+                <li>上传到GitHub完成部署</li>
+            </ol>
+        </div>
+
+        <button class="button button-primary" onclick="downloadAllFiles()">
+            🚀 下载所有文件
+        </button>
+
+        <button class="button button-success" onclick="downloadAsZip()">
+            📦 下载为ZIP压缩包
+        </button>
+
+        <div id="status" class="status"></div>
+
+        <div class="file-list" id="fileList">
+            <h3>📁 文件列表：</h3>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        // 所有文件内容
+        const files = {
+            "render.yaml": `services:
+  - type: web
+    name: paperbagglue-chat
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: gunicorn -w 2 -b 0.0.0.0:$PORT src.api.app:app
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: PYTHON_VERSION
+        value: 3.12.0
+    autoDeploy: true`,
+
+            "requirements.txt": `alembic==1.16.5
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.12.1
+APScheduler==3.11.2
+astroid==3.1.0
+Authlib==1.6.6
+beautifulsoup4==4.14.3
+blinker==1.9.0
+boto3==1.40.61
+botocore==1.40.61
+cachetools==6.2.6
+certifi==2026.1.4
+cffi==2.0.0
+chardet==5.2.0
+charset-normalizer==3.4.4
+click==8.3.1
+coverage==7.13.3
+coze-coding-dev-sdk==0.5.9
+coze-coding-utils==0.2.4
+coze-workload-identity==0.1.4
+cozeloop==0.1.25
+cryptography==46.0.4
+cssselect==1.4.0
+dbus-python==1.3.2
+deprecation==2.1.0
+dill==0.4.1
+distro==1.9.0
+docx2python==3.5.0
+et_xmlfile==2.0.0
+fastapi==0.121.2
+Flask==3.1.2
+flask-cors==6.0.2
+fsspec==2026.2.0
+gitdb==4.0.12
+gitignore_parser==0.1.13
+GitPython==3.1.45
+greenlet==3.3.1
+h11==0.16.0
+h2==4.3.0
+hpack==4.1.0
+httpcore==1.0.9
+httpx==0.28.1
+httpx-ws==0.8.2
+hyperframe==6.1.0
+idna==3.11
+inflect==7.5.0
+iniconfig==2.3.0
+isort==5.13.2
+itsdangerous==2.2.0
+Jinja2==3.1.6
+jiter==0.13.0
+jmespath==1.1.0
+jsonpatch==1.33
+jsonpointer==3.0.0
+langchain==1.0.3
+langchain-core==1.0.2
+langchain-openai==1.0.1
+langgraph==1.0.2
+langgraph-checkpoint==3.0.0
+langgraph-checkpoint-postgres==3.0.1
+langgraph-prebuilt==1.0.2
+langgraph-sdk==0.2.9
+langsmith==0.4.39
+lxml==6.0.2
+Mako==1.3.10
+markdown-it-py==4.0.0
+MarkupSafe==3.0.3
+mccabe==0.7.0
+mdurl==0.1.2
+mmh3==5.2.0
+more-itertools==10.8.0
+multidict==6.7.1
+numpy==2.2.6
+openai==2.16.0
+opencv-python==4.12.0.88
+openpyxl==3.1.5
+orjson==3.11.7
+ormsgpack==1.12.2
+packaging==25.0
+pandas==2.2.2
+paragraphs==1.0.1
+pillow==10.3.0
+platformdirs==4.5.1
+pluggy==1.6.0
+postgrest==2.27.3
+propcache==0.4.1
+psutil==7.1.3
+psycopg==3.3.0
+psycopg-binary==3.3.0
+psycopg-pool==3.3.0
+psycopg2-binary==2.9.9
+pycparser==3.0
+pydantic==2.12.3
+pydantic_core==2.41.4
+Pygments==2.19.2
+PyGObject==3.48.2
+pyiceberg==0.11.0
+PyJWT==2.10.1
+pylint==3.1.0
+pyparsing==3.3.2
+pypdf==6.4.1
+pyroaring==1.0.3
+pytest==9.0.1
+pytest-asyncio==1.3.0
+pytest-cov==7.0.0
+pytest-mock==3.15.1
+python-dateutil==2.9.0.post0
+python-docx==1.2.0
+python-dotenv==1.2.1
+python-pptx==1.0.2
+pytz==2025.2
+PyYAML==6.0.3
+realtime==2.27.3
+regex==2026.1.15
+requests==2.32.5
+requests-toolbelt==1.0.0
+rich==14.2.0
+s3transfer==0.14.0
+setuptools==68.1.2
+six==1.17.0
+smmap==5.0.2
+sniffio==1.3.1
+soupsieve==2.8.3
+sqlacodegen==3.2.0
+SQLAlchemy==2.0.44
+starlette==0.49.3
+storage3==2.27.3
+StrEnum==0.4.15
+strictyaml==1.7.3
+supabase==2.27.3
+supabase-auth==2.27.3
+supabase-functions==2.27.3
+tenacity==9.1.2
+tiktoken==0.12.0
+tomlkit==0.14.0
+tqdm==4.67.3
+typeguard==4.4.4
+types-html5lib==1.1.11.20251117
+types-lxml==2026.1.1
+types-webencodings==0.5.0.20251108
+typing-inspection==0.4.2
+typing_extensions==4.15.0
+tzdata==2025.3
+tzlocal==5.3.1
+urllib3==2.6.3
+uvicorn==0.38.0
+watchdog==6.0.0
+websockets==15.0.1
+Werkzeug==3.1.5
+wheel==0.42.0
+wsproto==1.3.2
+xlrd==2.0.2
+xlsxwriter==3.2.9
+xxhash==3.6.0
+yarl==1.22.0
+zstandard==0.25.0
+gunicorn==21.2.0`
+        };
+
+        // 显示文件列表
+        function displayFileList() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '<h3>📁 文件列表：</h3>';
+
+            for (const filename in files) {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.id = 'file-' + filename.replace(/\./g, '-');
+                div.innerHTML = `
+                    <span>📄 ${filename}</span>
+                    <span style="color: #999;">等待下载...</span>
+                `;
+                fileList.appendChild(div);
+            }
+        }
+
+        // 下载单个文件
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // 更新状态
+            const fileItem = document.getElementById('file-' + filename.replace(/\./g, '-'));
+            if (fileItem) {
+                fileItem.classList.add('downloaded');
+                fileItem.querySelector('span:last-child').textContent = '✅ 已下载';
+            }
+        }
+
+        // 下载所有文件
+        function downloadAllFiles() {
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.textContent = '🚀 开始下载文件...';
+
+            let count = 0;
+            for (const filename in files) {
+                setTimeout(() => {
+                    downloadFile(filename, files[filename]);
+                    count++;
+                    if (count === Object.keys(files).length) {
+                        status.textContent = '✅ 所有文件下载完成！请按文件夹结构整理：\n\npaperbagglue-chat/\n├── render.yaml\n├── requirements.txt\n├── config/\n│   └── agent_llm_config.json (需要单独获取)\n└── src/\n    ├── agents/\n    │   └── agent.py (需要单独获取)\n    ├── api/\n    │   └── app.py (需要单独获取)\n    ├── tools/\n    │   └── feishu_chat_record.py (需要单独获取)\n    └── storage/\n        └── memory/\n            └── memory_saver.py (需要单独获取)\n\n⚠️ 注意：其他文件内容较长，请返回对话中查看完整内容。';
+                    }
+                }, count * 500); // 每个文件间隔0.5秒下载
+            }
+        }
+
+        // 下载为ZIP
+        function downloadAsZip() {
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.textContent = '📦 正在创建ZIP文件...';
+
+            const zip = new JSZip();
+
+            // 添加文件到ZIP
+            for (const filename in files) {
+                zip.file(filename, files[filename]);
+            }
+
+            // 生成ZIP
+            zip.generateAsync({type:"blob"}).then(function(content) {
+                // 下载ZIP
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "paperbagglue-chat-part1.zip";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                status.textContent = '✅ ZIP文件已下载！\n\n注意：这只是部分文件。其他文件内容较长，需要返回对话中查看完整内容并手动创建。';
+            });
+        }
+
+        // 初始化
+        displayFileList();
+    </script>
+</body>
+</html>
