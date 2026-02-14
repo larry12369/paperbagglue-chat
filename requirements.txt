@@ -21,8 +21,5 @@ coze-coding-utils>=0.1.0
 psycopg[binary]>=3.1.0
 psycopg-pool>=3.1.0
 
-# 飞书集成
-feishu-bitable>=0.1.0
-
 # 日志和工具
 python-dotenv>=1.0.0
