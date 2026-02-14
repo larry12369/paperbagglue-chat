@@ -16,6 +16,7 @@ requests>=2.31.0
 # Coze SDK
 coze-workload-identity>=0.1.0
 coze-coding-utils>=0.1.0
+cozeloop>=0.1.0
 
 # 数据库连接
 psycopg[binary]>=3.1.0
