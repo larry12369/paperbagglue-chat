@@ -1,0 +1,168 @@
+==> Deploying...
+==> Setting WEB_CONCURRENCY=1 by default, based on available CPUs in the instance
+==> Running 'python src/api/app.py'
+/opt/render/project/src/.venv/lib/python3.14/site-packages/langchain_core/_api/deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+2026-02-14 23:47:12,449 - __main__ - INFO - Initializing agent...
+2026-02-14 23:47:12,449 - __main__ - ERROR - Failed to initialize agent: [Errno 2] No such file or directory: '/opt/render/project/config/agent_llm_config.json'
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-02-14 23:47:12,842 - werkzeug - INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://10.21.166.179:10000
+2026-02-14 23:47:12,843 - werkzeug - INFO - Press CTRL+C to quit
+2026-02-14 23:47:12,848 - werkzeug - INFO -  * Restarting with stat
+/opt/render/project/src/.venv/lib/python3.14/site-packages/langchain_core/_api/deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+==> No open HTTP ports detected on 0.0.0.0, continuing to scan...
+2026-02-14 23:47:24,453 - __main__ - INFO - Initializing agent...
+2026-02-14 23:47:24,453 - __main__ - ERROR - Failed to initialize agent: [Errno 2] No such file or directory: '/opt/render/project/config/agent_llm_config.json'
+2026-02-14 23:47:24,552 - werkzeug - WARNING -  * Debugger is active!
+2026-02-14 23:47:24,642 - werkzeug - INFO -  * Debugger PIN: 614-071-950
+2026-02-14 23:47:24,949 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 23:47:24] "HEAD / HTTP/1.1" 404 -
+2026-02-14 23:47:25,043 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:25,045 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 23:47:25] "HEAD / HTTP/1.1" 404 -
+2026-02-14 23:47:25,046 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 23:47:25] "HEAD / HTTP/1.1" 404 -
+2026-02-14 23:47:25,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:25,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:25] "GET /health HTTP/1.1" 200 -
+==> Your service is live 🎉
+2026-02-14 23:47:26,945 - werkzeug - INFO - 127.0.0.1 - - [14/Feb/2026 23:47:26] "GET / HTTP/1.1" 404 -
+==> 
+==> ///////////////////////////////////////////////////////////
+==> 
+==> Available at your primary URL https://paperbagglue-chat.onrender.com
+==> 
+==> ///////////////////////////////////////////////////////////
+2026-02-14 23:47:30,846 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:35,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:40,847 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:45,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:50,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:47:55,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:47:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:05,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:10,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:15,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:15,781 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:20,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:25,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:30,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:35,782 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:40,781 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:45,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:50,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:48:55,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:48:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:00,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:10,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:15,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:15,844 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:20,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:25,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:30,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:35,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:45,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:50,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:49:55,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:49:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:00,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:10,782 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:15,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:15,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:20,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:25,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:30,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:35,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:40,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:45,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:45,842 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:50,780 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:50:55,847 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:50:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:05,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:10,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:15,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:15,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:20,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:25,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:30,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:35,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:50,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:51:55,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:51:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:00,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:05,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:10,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:15,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:15,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:20,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:25,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:30,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:30] "GET /health HTTP/1.1" 200 -
+==> Detected service running on port 10000
+==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2026-02-14 23:52:35,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:45,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:45,781 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:50,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:52:55,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:52:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:10,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:15,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:15,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:20,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:25,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:30,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:35,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:45,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:45,781 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:50,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:53:55,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:53:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:10,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:15,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:15,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:20,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:25,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:30,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:35,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:40,843 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:45,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:50,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:54:55,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:54:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:10,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:10] "GET /health HTTP/1.1" 200 -
+Menu
+2026-02-14 23:55:15,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:15,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:20,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:25,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:30,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:35,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:40] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:45,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:45,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:45] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:50,779 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:50] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:55:55,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:55:55] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:00,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:00] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:05,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:05] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:10,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:10] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:15,844 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:15,844 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:15] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:20,778 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:20] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:25,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:25] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:30,777 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:30] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:35,844 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:35] "GET /health HTTP/1.1" 200 -
+2026-02-14 23:56:40,776 - werkzeug - INFO - 10.209.24.49 - - [14/Feb/2026 23:56:40] "GET /health HTTP/1.1" 200 -
