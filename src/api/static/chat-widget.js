@@ -42,7 +42,17 @@
                 <p class="online-status">● Online</p>
               </div>
             </div>
-            <button class="close-btn" onclick="window.chatWidget.toggle()">×</button>
+            <div class="chat-header-actions">
+              <button class="expand-btn" onclick="window.chatWidget.toggleExpand()" title="Expand">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 21H3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14 10L3 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="close-btn" onclick="window.chatWidget.toggle()">×</button>
+            </div>
           </div>
 
           <!-- 欢迎消息 -->
@@ -201,6 +211,46 @@
           margin: 0 !important;
           font-size: 10px !important;
           opacity: 0.9 !important;
+        }
+
+        /* 头部右侧按钮容器 */
+        .chat-header-actions {
+          display: flex !important;
+          gap: 4px !important;
+          align-items: center !important;
+        }
+
+        /* 放大按钮 */
+        .expand-btn {
+          background: none !important;
+          border: none !important;
+          color: white !important;
+          cursor: pointer !important;
+          width: 26px !important;
+          height: 26px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          border-radius: 50% !important;
+          transition: background 0.2s !important;
+        }
+
+        .expand-btn:hover {
+          background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .expand-btn svg {
+          width: 18px !important;
+          height: 18px !important;
+        }
+
+        /* 放大状态样式 */
+        #chat-window.expanded {
+          width: 760px !important;
+          height: 600px !important;
+          bottom: 50px !important;
+          right: 50% !important;
+          transform: translateX(50%) !important;
         }
 
         .close-btn {
@@ -480,6 +530,11 @@
     }
   }
 
+  function toggleExpand() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.toggle('expanded');
+  }
+
   function handleKeyDown(event) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
@@ -709,6 +764,7 @@
     // 暴露全局API
     window.chatWidget = {
       toggle: toggleChat,
+      toggleExpand: toggleExpand,
       send: send,
       sendText: sendText,
       handleFileUpload: handleFileUpload,
