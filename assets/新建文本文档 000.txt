@@ -1,51 +1,268 @@
-2026-02-15 00:26:33,928 - werkzeug - INFO -  * Debugger PIN: 139-180-073
-2026-02-15 00:26:34,327 - werkzeug - INFO - 127.0.0.1 - - [15/Feb/2026 00:26:34] "HEAD / HTTP/1.1" 404 -
-2026-02-15 00:26:34,331 - werkzeug - INFO - 127.0.0.1 - - [15/Feb/2026 00:26:34] "HEAD / HTTP/1.1" 404 -
-2026-02-15 00:26:34,336 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:34] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:34,424 - werkzeug - INFO - 127.0.0.1 - - [15/Feb/2026 00:26:34] "HEAD / HTTP/1.1" 404 -
-2026-02-15 00:26:34,433 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:34] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:35,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:35] "GET /health HTTP/1.1" 200 -
+==> Cloning from https://github.com/larry12369/paperbagglue-chat
+==> Checking out commit d96d2fe48b94a0c4f64ff743ea3538a1ef108072 in branch main
+==> Using Python version 3.14.3 (default)
+==> Docs on specifying a Python version: https://render.com/docs/python-version
+==> Using Poetry version 2.1.3 (default)
+==> Docs on specifying a Poetry version: https://render.com/docs/poetry-version
+==> Running build command 'pip install -r requirements.txt'...
+Collecting flask>=3.0.0 (from -r requirements.txt (line 2))
+  Downloading flask-3.1.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting flask-cors>=4.0.0 (from -r requirements.txt (line 3))
+  Downloading flask_cors-6.0.2-py3-none-any.whl.metadata (5.3 kB)
+Collecting langchain>=0.3.0 (from -r requirements.txt (line 6))
+  Downloading langchain-1.2.10-py3-none-any.whl.metadata (5.7 kB)
+Collecting langchain-openai>=0.2.0 (from -r requirements.txt (line 7))
+  Downloading langchain_openai-1.1.9-py3-none-any.whl.metadata (3.1 kB)
+Collecting langchain-core>=0.3.0 (from -r requirements.txt (line 8))
+  Downloading langchain_core-1.2.12-py3-none-any.whl.metadata (4.4 kB)
+Collecting langgraph>=0.2.0 (from -r requirements.txt (line 11))
+  Downloading langgraph-1.0.8-py3-none-any.whl.metadata (7.4 kB)
+Menu
+Collecting requests>=2.31.0 (from -r requirements.txt (line 14))
+  Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting coze-workload-identity>=0.1.0 (from -r requirements.txt (line 17))
+  Downloading coze_workload_identity-0.1.11.tar.gz (25 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting coze-coding-utils>=0.1.0 (from -r requirements.txt (line 18))
+  Downloading coze_coding_utils-0.2.4-py3-none-any.whl.metadata (977 bytes)
+Collecting cozeloop>=0.1.0 (from -r requirements.txt (line 19))
+  Downloading cozeloop-0.1.25-py3-none-any.whl.metadata (2.7 kB)
+Collecting psycopg>=3.1.0 (from psycopg[binary]>=3.1.0->-r requirements.txt (line 22))
+  Downloading psycopg-3.3.2-py3-none-any.whl.metadata (4.3 kB)
+Collecting psycopg-pool>=3.1.0 (from -r requirements.txt (line 23))
+  Downloading psycopg_pool-3.3.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting python-dotenv>=1.0.0 (from -r requirements.txt (line 26))
+  Downloading python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+Collecting blinker>=1.9.0 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting click>=8.1.3 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting itsdangerous>=2.2.0 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting jinja2>=3.1.2 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting markupsafe>=2.1.1 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting werkzeug>=3.1.0 (from flask>=3.0.0->-r requirements.txt (line 2))
+  Downloading werkzeug-3.1.5-py3-none-any.whl.metadata (4.0 kB)
+Collecting pydantic<3.0.0,>=2.7.4 (from langchain>=0.3.0->-r requirements.txt (line 6))
+  Downloading pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading langsmith-0.7.3-py3-none-any.whl.metadata (15 kB)
+Collecting packaging>=23.2.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Using cached packaging-26.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pyyaml<7.0.0,>=5.3.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting tenacity!=8.4.0,<10.0.0,>=8.1.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+Collecting typing-extensions<5.0.0,>=4.7.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading uuid_utils-0.14.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting langgraph-checkpoint<5.0.0,>=2.1.0 (from langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading langgraph_checkpoint-4.0.0-py3-none-any.whl.metadata (4.9 kB)
+Collecting langgraph-prebuilt<1.1.0,>=1.0.7 (from langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading langgraph_prebuilt-1.0.7-py3-none-any.whl.metadata (5.2 kB)
+Collecting langgraph-sdk<0.4.0,>=0.3.0 (from langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading langgraph_sdk-0.3.6-py3-none-any.whl.metadata (1.6 kB)
+Collecting xxhash>=3.5.0 (from langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading xxhash-3.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+Collecting ormsgpack>=1.12.0 (from langgraph-checkpoint<5.0.0,>=2.1.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading ormsgpack-1.12.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+Collecting httpx>=0.25.2 (from langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting orjson>=3.10.1 (from langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading orjson-3.11.7-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core>=0.3.0->-r requirements.txt (line 8))
+  Downloading zstandard-0.25.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Collecting anyio (from httpx>=0.25.2->langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+Collecting certifi (from httpx>=0.25.2->langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx>=0.25.2->langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx>=0.25.2->langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.25.2->langgraph-sdk<0.4.0,>=0.3.0->langgraph>=0.2.0->-r requirements.txt (line 11))
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.7.4->langchain>=0.3.0->-r requirements.txt (line 6))
+  Downloading annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.7.4->langchain>=0.3.0->-r requirements.txt (line 6))
+  Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.7.4->langchain>=0.3.0->-r requirements.txt (line 6))
+  Downloading typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting openai<3.0.0,>=1.109.1 (from langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading openai-2.21.0-py3-none-any.whl.metadata (29 kB)
+Collecting tiktoken<1.0.0,>=0.7.0 (from langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading tiktoken-0.12.0-cp314-cp314-manylinux_2_28_x86_64.whl.metadata (6.7 kB)
+Collecting distro<2,>=1.7.0 (from openai<3.0.0,>=1.109.1->langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting jiter<1,>=0.10.0 (from openai<3.0.0,>=1.109.1->langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading jiter-0.13.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+Collecting sniffio (from openai<3.0.0,>=1.109.1->langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting tqdm>4 (from openai<3.0.0,>=1.109.1->langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading tqdm-4.67.3-py3-none-any.whl.metadata (57 kB)
+Collecting regex>=2022.1.18 (from tiktoken<1.0.0,>=0.7.0->langchain-openai>=0.2.0->-r requirements.txt (line 7))
+  Downloading regex-2026.1.15-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->-r requirements.txt (line 14))
+  Downloading charset_normalizer-3.4.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting urllib3<3,>=1.21.1 (from requests>=2.31.0->-r requirements.txt (line 14))
+  Downloading urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+Collecting apscheduler<4.0.0,>=3.11.0 (from cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading apscheduler-3.11.2-py3-none-any.whl.metadata (6.4 kB)
+Collecting authlib<2.0.0,>=1.2.0 (from cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading authlib-1.6.8-py2.py3-none-any.whl.metadata (9.8 kB)
+Collecting cachetools<7.0.0,>=5.5.2 (from cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading cachetools-6.2.6-py3-none-any.whl.metadata (5.6 kB)
+Collecting tzlocal>=3.0 (from apscheduler<4.0.0,>=3.11.0->cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading tzlocal-5.3.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting cryptography (from authlib<2.0.0,>=1.2.0->cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading cryptography-46.0.5-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (5.7 kB)
+Collecting psycopg-binary==3.3.2 (from psycopg[binary]>=3.1.0->-r requirements.txt (line 22))
+  Downloading psycopg_binary-3.3.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+Collecting cffi>=2.0.0 (from cryptography->authlib<2.0.0,>=1.2.0->cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading cffi-2.0.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography->authlib<2.0.0,>=1.2.0->cozeloop>=0.1.0->-r requirements.txt (line 19))
+  Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Downloading flask-3.1.2-py3-none-any.whl (103 kB)
+Downloading flask_cors-6.0.2-py3-none-any.whl (13 kB)
+Downloading langchain-1.2.10-py3-none-any.whl (111 kB)
+Downloading langchain_core-1.2.12-py3-none-any.whl (500 kB)
+Downloading langgraph-1.0.8-py3-none-any.whl (158 kB)
+Downloading jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+Downloading langgraph_checkpoint-4.0.0-py3-none-any.whl (46 kB)
+Downloading langgraph_prebuilt-1.0.7-py3-none-any.whl (35 kB)
+Downloading langgraph_sdk-0.3.6-py3-none-any.whl (88 kB)
+Downloading langsmith-0.7.3-py3-none-any.whl (325 kB)
+Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading pydantic-2.12.5-py3-none-any.whl (463 kB)
+Downloading pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 5.1 MB/s  0:00:00
+Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 794.2/794.2 kB 41.3 MB/s  0:00:00
+Downloading tenacity-9.1.4-py3-none-any.whl (28 kB)
+Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Downloading uuid_utils-0.14.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (341 kB)
+Downloading langchain_openai-1.1.9-py3-none-any.whl (85 kB)
+Downloading openai-2.21.0-py3-none-any.whl (1.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 61.7 MB/s  0:00:00
+Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Downloading jiter-0.13.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (360 kB)
+Downloading tiktoken-0.12.0-cp314-cp314-manylinux_2_28_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 47.0 MB/s  0:00:00
+Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+Downloading charset_normalizer-3.4.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (152 kB)
+Downloading idna-3.11-py3-none-any.whl (71 kB)
+Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+Downloading coze_coding_utils-0.2.4-py3-none-any.whl (72 kB)
+Downloading cozeloop-0.1.25-py3-none-any.whl (91 kB)
+Downloading apscheduler-3.11.2-py3-none-any.whl (64 kB)
+Downloading authlib-1.6.8-py2.py3-none-any.whl (244 kB)
+Downloading cachetools-6.2.6-py3-none-any.whl (11 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading psycopg-3.3.2-py3-none-any.whl (212 kB)
+Downloading psycopg_pool-3.3.0-py3-none-any.whl (39 kB)
+Downloading python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+Downloading click-8.3.1-py3-none-any.whl (108 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Downloading jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+Downloading markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+Downloading orjson-3.11.7-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (133 kB)
+Downloading ormsgpack-1.12.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+Using cached packaging-26.0-py3-none-any.whl (74 kB)
+Downloading psycopg_binary-3.3.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 65.4 MB/s  0:00:00
+Downloading regex-2026.1.15-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (803 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 803.4/803.4 kB 59.7 MB/s  0:00:00
+Downloading requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+Downloading tqdm-4.67.3-py3-none-any.whl (78 kB)
+Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+Downloading tzlocal-5.3.1-py3-none-any.whl (18 kB)
+Downloading werkzeug-3.1.5-py3-none-any.whl (225 kB)
+Downloading xxhash-3.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (194 kB)
+Downloading zstandard-0.25.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (5.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 73.2 MB/s  0:00:00
+Downloading cryptography-46.0.5-cp311-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 157.1 MB/s  0:00:00
+Downloading cffi-2.0.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (219 kB)
+Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+Building wheels for collected packages: coze-workload-identity
+  Building wheel for coze-workload-identity (pyproject.toml): started
+  Building wheel for coze-workload-identity (pyproject.toml): finished with status 'done'
+  Created wheel for coze-workload-identity: filename=coze_workload_identity-0.1.11-py3-none-any.whl size=16937 sha256=31b9cda5004d6d1d39ff5a1bd5818e144cf2db3d7560e4e52c654f1bf0a59020
+  Stored in directory: /opt/render/.cache/wheels/f5/2a/37/0bd48ae4e1c5ed27aa2a4a0158a1679ffef1fd654e1543a29f
+Successfully built coze-workload-identity
+Installing collected packages: zstandard, xxhash, uuid-utils, urllib3, tzlocal, typing-extensions, tqdm, tenacity, sniffio, regex, pyyaml, python-dotenv, pycparser, psycopg-binary, psycopg, packaging, ormsgpack, orjson, markupsafe, jsonpointer, jiter, itsdangerous, idna, h11, distro, coze-coding-utils, click, charset_normalizer, certifi, cachetools, blinker, annotated-types, werkzeug, typing-inspection, requests, pydantic-core, psycopg-pool, jsonpatch, jinja2, httpcore, cffi, apscheduler, anyio, tiktoken, requests-toolbelt, pydantic, httpx, flask, cryptography, coze-workload-identity, openai, langsmith, langgraph-sdk, flask-cors, authlib, langchain-core, cozeloop, langgraph-checkpoint, langchain-openai, langgraph-prebuilt, langgraph, langchain
+Successfully installed annotated-types-0.7.0 anyio-4.12.1 apscheduler-3.11.2 authlib-1.6.8 blinker-1.9.0 cachetools-6.2.6 certifi-2026.1.4 cffi-2.0.0 charset_normalizer-3.4.4 click-8.3.1 coze-coding-utils-0.2.4 coze-workload-identity-0.1.11 cozeloop-0.1.25 cryptography-46.0.5 distro-1.9.0 flask-3.1.2 flask-cors-6.0.2 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 itsdangerous-2.2.0 jinja2-3.1.6 jiter-0.13.0 jsonpatch-1.33 jsonpointer-3.0.0 langchain-1.2.10 langchain-core-1.2.12 langchain-openai-1.1.9 langgraph-1.0.8 langgraph-checkpoint-4.0.0 langgraph-prebuilt-1.0.7 langgraph-sdk-0.3.6 langsmith-0.7.3 markupsafe-3.0.3 openai-2.21.0 orjson-3.11.7 ormsgpack-1.12.2 packaging-26.0 psycopg-3.3.2 psycopg-binary-3.3.2 psycopg-pool-3.3.0 pycparser-3.0 pydantic-2.12.5 pydantic-core-2.41.5 python-dotenv-1.2.1 pyyaml-6.0.3 regex-2026.1.15 requests-2.32.5 requests-toolbelt-1.0.0 sniffio-1.3.1 tenacity-9.1.4 tiktoken-0.12.0 tqdm-4.67.3 typing-extensions-4.15.0 typing-inspection-0.4.2 tzlocal-5.3.1 urllib3-2.6.3 uuid-utils-0.14.0 werkzeug-3.1.5 xxhash-3.6.0 zstandard-0.25.0
+[notice] A new release of pip is available: 25.3 -> 26.0.1
+[notice] To update, run: pip install --upgrade pip
+==> Uploading build...
+==> Uploaded in 19.0s. Compression took 3.6s
+==> Build successful 🎉
+==> Deploying...
+==> Setting WEB_CONCURRENCY=1 by default, based on available CPUs in the instance
+==> Running 'python src/api/app.py'
+/opt/render/project/src/.venv/lib/python3.14/site-packages/langchain_core/_api/deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:105: SyntaxWarning: 'return' in a 'finally' block
+  return res
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:144: SyntaxWarning: 'return' in a 'finally' block
+  return res
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:253: SyntaxWarning: 'return' in a 'finally' block
+  return res
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:292: SyntaxWarning: 'return' in a 'finally' block
+  return res
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:360: SyntaxWarning: 'return' in a 'finally' block
+  return res
+/opt/render/project/src/.venv/lib/python3.14/site-packages/cozeloop/decorator/decorator.py:391: SyntaxWarning: 'return' in a 'finally' block
+  return res
+2026-02-15 00:34:10,490 - __main__ - INFO - Initializing agent...
+2026-02-15 00:34:10,490 - __main__ - ERROR - Failed to initialize agent: [Errno 2] No such file or directory: '/opt/render/project/src/../config/agent_llm_config.json'
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-02-15 00:34:10,778 - werkzeug - INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://10.16.150.135:10000
+2026-02-15 00:34:10,778 - werkzeug - INFO - Press CTRL+C to quit
+2026-02-15 00:34:10,880 - werkzeug - INFO -  * Restarting with stat
+/opt/render/project/src/.venv/lib/python3.14/site-packages/langchain_core/_api/deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+2026-02-15 00:34:23,324 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:23] "GET /health HTTP/1.1" 200 -
 ==> Your service is live 🎉
-2026-02-15 00:26:35,827 - werkzeug - INFO - 127.0.0.1 - - [15/Feb/2026 00:26:35] "GET / HTTP/1.1" 404 -
+2026-02-15 00:34:25,093 - werkzeug - INFO - 127.0.0.1 - - [15/Feb/2026 00:34:25] "GET / HTTP/1.1" 404 -
 ==> 
 ==> ///////////////////////////////////////////////////////////
 ==> 
 ==> Available at your primary URL https://paperbagglue-chat.onrender.com
 ==> 
 ==> ///////////////////////////////////////////////////////////
-2026-02-15 00:26:37,038 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:26:37] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:40,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:40] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:41,988 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:26:41] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:45,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:45] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:47,039 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:26:47] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:50,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:50] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:51,986 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:26:51] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:55,435 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:26:55] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:26:56,983 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:26:56] "GET /health HTTP/1.1" 200 -
-Menu
-2026-02-15 00:27:00,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:00] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:00,432 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:00] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:01,984 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:01] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:05,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:05] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:07,038 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:07] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:10,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:10] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:11,990 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:11] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:15,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:15] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:16,983 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:16] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:20,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:20] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:21,983 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:21] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:25,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:25] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:26,984 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:26] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:30,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:30] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:30,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:30] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:31,984 - werkzeug - INFO - 10.209.24.200 - - [15/Feb/2026 00:27:31] "GET /health HTTP/1.1" 200 -
-/opt/render/project/python/Python-3.14.3/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-0_n_ybwc'}
-  warnings.warn(
-2026-02-15 00:27:35,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:35] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:40,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:40] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:45,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:45] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:50,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:50] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:27:55,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:27:55] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:28:00,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:28:00] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:28:00,431 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:28:00] "GET /health HTTP/1.1" 200 -
-2026-02-15 00:28:05,430 - werkzeug - INFO - 10.209.27.198 - - [15/Feb/2026 00:28:05] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:28,323 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:28] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:33,324 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:33] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:38,324 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:38] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:43,323 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:43] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:48,323 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:48] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:48,324 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:48] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:53,323 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:53] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:34:58,380 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:34:58] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:35:03,324 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:35:03] "GET /health HTTP/1.1" 200 -
+2026-02-15 00:35:08,377 - werkzeug - INFO - 10.209.24.78 - - [15/Feb/2026 00:35:08] "GET /health HTTP/1.1" 200 -
