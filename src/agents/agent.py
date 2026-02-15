@@ -12,7 +12,7 @@ from coze_coding_utils.runtime_ctx.context import default_headers
 from storage.memory.memory_saver import get_memory_saver
 from tools.feishu_chat_record import save_chat_record, get_chat_summary
 
-LLM_CONFIG = "config/agent_llm_config.json"
+LLM_CONFIG = "../config/agent_llm_config.json"
 
 # 默认保留最近 20 轮对话 (40 条消息)
 MAX_MESSAGES = 40
