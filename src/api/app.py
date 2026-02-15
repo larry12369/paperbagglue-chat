@@ -22,7 +22,7 @@ def initialize_agent():
             logger.info(f"Checking path: {path}")
             if os.path.exists(path):
                 config_path = path
-                logger.info(f"✓ Found config file at: {path}")"""
+                logger.info(f"✓ Found config file at: {path}")
 Flask API Service for Customer Support Agent
 提供客服智能体的HTTP API接口
 """
