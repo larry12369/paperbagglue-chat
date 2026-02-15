@@ -8,7 +8,9 @@
   // ==================== 配置 ====================
   const CONFIG = {
     API_URL: 'https://paperbagglue-chat.onrender.com/api/chat',
+    UPLOAD_URL: 'https://paperbagglue-chat.onrender.com/api/upload',
     WIDGET_ID: 'chat-widget-container',
+    AUTO_OPEN_DELAY: 3000, // 3秒后自动打开
   };
 
   // 生成会话ID
@@ -26,7 +28,7 @@
             <circle cx="12" cy="11" r="1.5" fill="#00A859"/>
             <circle cx="15" cy="11" r="1.5" fill="#00A859"/>
           </svg>
-          <span>咨询</span>
+          <span>Consult</span>
         </button>
 
         <!-- 聊天窗口 -->
@@ -37,7 +39,7 @@
               <img src="https://paperbagglue.com/wp-content/uploads/2025/01/logo.png" alt="Logo" class="chat-logo" onerror="this.style.display='none'">
               <div class="chat-header-info">
                 <h3>Larry Chen</h3>
-                <p class="online-status">● 在线</p>
+                <p class="online-status">● Online</p>
               </div>
             </div>
             <button class="close-btn" onclick="window.chatWidget.toggle()">×</button>
@@ -46,15 +48,16 @@
           <!-- 欢迎消息 -->
           <div id="welcome-message" class="message bot-message">
             <div class="message-content">
-              <p>您好！我是河北鑫邦包装材料有限公司的销售经理 Larry Chen。👋</p>
-              <p>我可以帮您：</p>
-              <ul>
-                <li>推荐适合的环保水性胶水</li>
-                <li>提供产品技术参数</li>
-                <li>解答生产应用问题</li>
-                <li>获取报价和样品</li>
-              </ul>
-              <p>请问有什么可以帮助您的吗？😊</p>
+              <p>Welcome to Xinbang Adhesives! 🎉</p>
+              <p>First Xinbang, No Peeling! I'm Larry Chen, Sales Manager.</p>
+              <p>To recommend the most suitable adhesive for you, please provide:</p>
+              <ol>
+                <li>Photo of your gluing equipment</li>
+                <li>Photo of the products you're gluing</li>
+                <li>Application process (Roller gluing or Spray gluing)</li>
+                <li>Materials to bond (Paper to paper, Paper to film, etc.)</li>
+              </ol>
+              <p>How can I help you today? 😊</p>
             </div>
           </div>
 
@@ -63,9 +66,17 @@
 
           <!-- 输入区域 -->
           <div class="chat-input-area">
+            <input type="file" id="image-upload" accept="image/*" style="display: none;" onchange="window.chatWidget.handleFileUpload(this)">
+            <button id="upload-btn" onclick="document.getElementById('image-upload').click()" title="Upload Image">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
             <textarea 
               id="chat-input" 
-              placeholder="输入您的问题..." 
+              placeholder="Type your message..." 
               rows="2"
             ></textarea>
             <button id="send-btn" onclick="window.chatWidget.send()" disabled>
@@ -155,11 +166,11 @@
           to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 聊天头部 */
+        /* 聊天头部 - 缩小到原来的1/3高度 */
         .chat-header {
           background: linear-gradient(135deg, #00A859 0%, #008F4D 100%) !important;
           color: white !important;
-          padding: 20px !important;
+          padding: 8px 12px !important;
           display: flex !important;
           justify-content: space-between !important;
           align-items: center !important;
@@ -168,12 +179,12 @@
         .chat-header-left {
           display: flex !important;
           align-items: center !important;
-          gap: 12px !important;
+          gap: 8px !important;
         }
 
         .chat-logo {
-          width: 45px !important;
-          height: 45px !important;
+          width: 28px !important;
+          height: 28px !important;
           border-radius: 50% !important;
           background: white !important;
           padding: 2px !important;
@@ -182,13 +193,13 @@
 
         .chat-header-info h3 {
           margin: 0 !important;
-          font-size: 16px !important;
+          font-size: 14px !important;
           font-weight: 600 !important;
         }
 
         .online-status {
           margin: 0 !important;
-          font-size: 12px !important;
+          font-size: 10px !important;
           opacity: 0.9 !important;
         }
 
@@ -196,10 +207,10 @@
           background: none !important;
           border: none !important;
           color: white !important;
-          font-size: 28px !important;
+          font-size: 24px !important;
           cursor: pointer !important;
-          width: 30px !important;
-          height: 30px !important;
+          width: 26px !important;
+          height: 26px !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
@@ -272,7 +283,7 @@
           margin: 0 !important;
         }
 
-        .message-content ul {
+        .message-content ul, .message-content ol {
           margin: 0 !important;
           padding-left: 20px !important;
         }
@@ -283,12 +294,36 @@
 
         /* 输入区域 */
         .chat-input-area {
-          padding: 16px !important;
+          padding: 12px 16px !important;
           background: white !important;
           border-top: 1px solid #e8e8e8 !important;
           display: flex !important;
-          gap: 12px !important;
+          gap: 8px !important;
           align-items: flex-end !important;
+        }
+
+        #upload-btn {
+          width: 36px !important;
+          height: 36px !important;
+          border-radius: 8px !important;
+          background: #f0f0f0 !important;
+          border: 1px solid #d9d9d9 !important;
+          color: #666 !important;
+          cursor: pointer !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          transition: all 0.2s !important;
+        }
+
+        #upload-btn:hover {
+          background: #e0e0e0 !important;
+          color: #333 !important;
+        }
+
+        #upload-btn svg {
+          width: 18px !important;
+          height: 18px !important;
         }
 
         #chat-input {
@@ -309,8 +344,8 @@
         }
 
         #send-btn {
-          width: 40px !important;
-          height: 40px !important;
+          width: 36px !important;
+          height: 36px !important;
           border-radius: 8px !important;
           background: linear-gradient(135deg, #00A859 0%, #008F4D 100%) !important;
           border: none !important;
@@ -333,8 +368,21 @@
         }
 
         #send-btn svg {
-          width: 20px !important;
-          height: 20px !important;
+          width: 18px !important;
+          height: 18px !important;
+        }
+
+        /* 图片消息样式 */
+        .message-image {
+          max-width: 250px !important;
+          max-height: 250px !important;
+          border-radius: 8px !important;
+          cursor: pointer !important;
+          transition: transform 0.2s !important;
+        }
+
+        .message-image:hover {
+          transform: scale(1.02) !important;
         }
 
         /* 加载动画 */
@@ -394,16 +442,20 @@
           }
 
           .chat-header {
-            padding: 16px !important;
+            padding: 6px 10px !important;
           }
 
           .chat-logo {
-            width: 40px !important;
-            height: 40px !important;
+            width: 24px !important;
+            height: 24px !important;
           }
 
           .chat-header-info h3 {
-            font-size: 14px !important;
+            font-size: 13px !important;
+          }
+
+          .online-status {
+            font-size: 9px !important;
           }
         }
       </style>
@@ -435,17 +487,87 @@
     }
   }
 
+  async function handleFileUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    // 显示用户上传的图片
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      addImageMessage(e.target.result, 'user');
+    };
+    reader.readAsDataURL(file);
+
+    // 上传到服务器
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('session_id', sessionId);
+
+    try {
+      const response = await fetch(CONFIG.UPLOAD_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+
+      // 发送消息通知AI有新图片
+      await sendText(`[Image uploaded] ${result.file_id}`);
+
+    } catch (error) {
+      console.error('Upload error:', error);
+      addMessage('Failed to upload image. Please try again.', 'bot');
+    }
+
+    // 清空input
+    input.value = '';
+  }
+
+  function addImageMessage(imageUrl, type) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${type}-message`;
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.className = 'message-image';
+    img.onclick = function() {
+      window.open(imageUrl, '_blank');
+    };
+
+    contentDiv.appendChild(img);
+    messageDiv.appendChild(contentDiv);
+    messagesContainer.appendChild(messageDiv);
+
+    scrollToBottom();
+  }
+
   async function send() {
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
 
     if (!message) return;
 
+    await sendText(message);
+    input.value = '';
+  }
+
+  async function sendText(message) {
+    const input = document.getElementById('chat-input');
+    
     input.disabled = true;
     document.getElementById('send-btn').disabled = true;
 
-    addMessage(message, 'user');
-    input.value = '';
+    if (!message.startsWith('[Image uploaded]')) {
+      addMessage(message, 'user');
+    }
 
     showTypingIndicator();
 
@@ -480,7 +602,7 @@
 
       removeTypingIndicator();
 
-      addMessage('抱歉，我遇到了一些问题。请稍后再试，或者通过以下方式联系我们：\n\n📱 WhatsApp: +8613323273311\n📧 Email: LarryChen@paperbagglue.com', 'bot');
+      addMessage('Sorry, I encountered an issue. Please try again later, or contact us:\n\n📱 WhatsApp: +8613323273311\n📧 Email: LarryChen@paperbagglue.com', 'bot');
     } finally {
       input.disabled = false;
       document.getElementById('send-btn').disabled = true;
@@ -513,13 +635,16 @@
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
 
+    // 处理换行
     processed = processed.replace(/\n/g, '<br>');
 
+    // 处理链接（自动链接）
     processed = processed.replace(
       /(https?:\/\/[^\s]+)/g,
-      '<a href="$1" target="_blank" style="color: #00A859; text-decoration: underline;">$1</a>'
+      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #00A859; text-decoration: underline; font-weight: 500;">$1</a>'
     );
 
+    // 处理加粗文本（**文本**）
     processed = processed.replace(
       /\*\*([^*]+)\*\*/g,
       '<strong>$1</strong>'
@@ -585,6 +710,8 @@
     window.chatWidget = {
       toggle: toggleChat,
       send: send,
+      sendText: sendText,
+      handleFileUpload: handleFileUpload,
       open: function() {
         if (!document.getElementById('chat-window').classList.contains('active')) {
           toggleChat();
@@ -598,6 +725,15 @@
     };
 
     console.log('PaperBagGlue Chat Widget loaded successfully');
+
+    // 3秒后自动打开聊天窗口
+    setTimeout(function() {
+      // 检查用户是否还没有打开过
+      if (!document.getElementById('chat-window').classList.contains('active')) {
+        window.chatWidget.open();
+        console.log('Auto-opened chat widget');
+      }
+    }, CONFIG.AUTO_OPEN_DELAY);
   }
 
   // 页面加载完成后初始化
