@@ -82,12 +82,32 @@ def initialize_storage():
 
 
 # ==================== 飞书多维表格集成 ====================
-feishu_client = Client()
+feishu_client = None  # 初始化为 None，表示飞书功能可能不可用
 feishu_base_token = None
 feishu_table_id = None
+feishu_enabled = False  # 标记飞书功能是否可用
+
+def initialize_feishu_client():
+    """初始化飞书客户端"""
+    global feishu_client, feishu_enabled
+    
+    try:
+        feishu_client = Client()
+        feishu_enabled = True
+        logger.info("Feishu client initialized successfully")
+        return True
+    except Exception as e:
+        logger.warning(f"Feishu client initialization failed (this is expected on Render): {e}")
+        logger.info("Feishu integration is disabled, but the app will continue to run")
+        feishu_client = None
+        feishu_enabled = False
+        return False
 
 def get_feishu_token():
     """获取飞书访问令牌"""
+    if feishu_client is None:
+        logger.warning("Feishu client is not initialized")
+        return None
     return feishu_client.get_integration_credential("integration-feishu-base")
 
 def initialize_feishu():
@@ -419,8 +439,12 @@ if __name__ == '__main__':
     # 初始化对象存储
     initialize_storage()
     
-    # 初始化飞书多维表格
-    initialize_feishu()
+    # 初始化飞书客户端（可选功能）
+    initialize_feishu_client()
+    
+    # 初始化飞书多维表格（仅当客户端可用时）
+    if feishu_enabled:
+        initialize_feishu()
     
     # 启动Flask服务
     port = int(os.environ.get('PORT', 5000))
