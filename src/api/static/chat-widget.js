@@ -32,7 +32,7 @@
             <circle cx="12" cy="11" r="1.5" fill="#00A859"/>
             <circle cx="15" cy="11" r="1.5" fill="#00A859"/>
           </svg>
-          <span>Consult</span>
+          <span>Inquiry</span>
         </button>
 
         <!-- 聊天窗口 -->
@@ -62,16 +62,9 @@
           <!-- 欢迎消息 -->
           <div id="welcome-message" class="message bot-message">
             <div class="message-content">
-              <p>Welcome to Xinbang Adhesives! 🎉</p>
-              <p>First Xinbang, No Peeling! I'm Larry Chen, Sales Manager.</p>
-              <p>To recommend the most suitable adhesive for you, please provide:</p>
-              <ol>
-                <li>Photo of your gluing equipment</li>
-                <li>Photo of the products you're gluing</li>
-                <li>Application process (Roller gluing or Spray gluing)</li>
-                <li>Materials to bond (Paper to paper, Paper to film, etc.)</li>
-              </ol>
-              <p>How can I help you today? 😊</p>
+              <p>Hello 👋 I'm Larry.</p>
+              <p>I recommend or customize adhesives based on your equipment and speed.</p>
+              <p>Chat here or WhatsApp: +86 133-2327-3311</p>
             </div>
           </div>
 
@@ -466,14 +459,22 @@
           transform: scale(1.02) !important;
         }
 
-        /* 加载动画 */
-        .typing-indicator {
+        /* 加载动画 - Larry is typing */
+        .typing-indicator-text {
           display: flex !important;
-          gap: 4px !important;
+          align-items: center !important;
+          gap: 6px !important;
           padding: 12px 16px !important;
+          font-size: 14px !important;
+          color: #333 !important;
         }
 
-        .typing-indicator span {
+        .typing-indicator-dots {
+          display: flex !important;
+          gap: 4px !important;
+        }
+
+        .typing-indicator-dots span {
           width: 8px !important;
           height: 8px !important;
           background: #999 !important;
@@ -481,11 +482,11 @@
           animation: typing 1.4s infinite ease-in-out !important;
         }
 
-        .typing-indicator span:nth-child(1) {
+        .typing-indicator-dots span:nth-child(1) {
           animation-delay: -0.32s !important;
         }
 
-        .typing-indicator span:nth-child(2) {
+        .typing-indicator-dots span:nth-child(2) {
           animation-delay: -0.16s !important;
         }
 
@@ -582,7 +583,12 @@
   function updateConnectionStatus(status) {
     const statusEl = document.getElementById('connection-status');
     if (statusEl) {
-      statusEl.textContent = status;
+      // 显示We're Online而不是Online
+      if (status === 'Online') {
+        statusEl.textContent = "We're Online";
+      } else {
+        statusEl.textContent = status;
+      }
       
       if (status === 'Online') {
         statusEl.style.color = '#4CAF50';
@@ -823,10 +829,15 @@
     typingDiv.id = 'typing-indicator';
 
     typingDiv.innerHTML = `
-      <div class="typing-indicator">
-        <span></span>
-        <span></span>
-        <span></span>
+      <div class="message-content">
+        <div class="typing-indicator-text">
+          Larry is typing
+          <div class="typing-indicator-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
       </div>
     `;
 
