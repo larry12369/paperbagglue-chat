@@ -1,0 +1,90 @@
+# PythonAnywhere 部署所需的核心依赖
+# Core dependencies for PythonAnywhere deployment
+
+# Flask 相关
+Flask==3.1.2
+flask-cors==6.0.2
+Werkzeug==3.1.5
+Jinja2==3.1.6
+itsdangerous==2.2.0
+MarkupSafe==3.0.3
+click==8.3.1
+
+# LangChain 相关
+langchain==1.0.3
+langchain-core==1.0.2
+langchain-openai==1.0.1
+langgraph==1.0.2
+langgraph-checkpoint==3.0.0
+langgraph-checkpoint-postgres==3.0.1
+langgraph-prebuilt==1.0.2
+langgraph-sdk==0.2.9
+langsmith==0.4.39
+
+# OpenAI 相关
+openai==2.16.0
+tiktoken==0.12.0
+
+# HTTP 客户端
+httpx==0.28.1
+httpcore==1.0.9
+httpx-ws==0.8.2
+h11==0.16.0
+requests==2.32.5
+urllib3==2.6.3
+
+# 数据处理
+numpy==2.2.6
+pandas==2.3.0
+openpyxl==3.1.5
+xlsxwriter==3.2.9
+
+# 文档处理
+python-docx==1.2.0
+pypdf==6.4.1
+python-pptx==1.0.2
+
+# 图像处理
+Pillow==10.4.0
+
+# S3 存储
+boto3==1.40.61
+botocore==1.40.61
+s3transfer==0.14.0
+
+# 飞书集成
+coze-workload-identity==0.1.4
+
+# Coze SDK
+coze-coding-dev-sdk==0.5.9
+coze-coding-utils==0.2.4
+cozeloop==0.1.25
+
+# PostgreSQL
+psycopg==3.3.0
+psycopg-binary==3.3.0
+psycopg-pool==3.3.0
+SQLAlchemy==2.0.44
+
+# 工具库
+pydantic==2.12.3
+pydantic_core==2.41.4
+pyyaml==6.0.3
+python-dateutil==2.9.0.post0
+pytz==2025.2
+typing_extensions==4.15.0
+
+# 加密
+cryptography==46.0.4
+PyJWT==2.10.1
+
+# 异步支持
+anyio==4.12.1
+greenlet==3.3.1
+sniffio==1.3.1
+
+# 其他工具
+tenacity==9.1.2
+packaging==25.0
+orjson==3.11.7
+ormsgpack==1.12.2
