@@ -1,6 +1,6 @@
 /**
- * 纸邦胶业智能客服聊天组件 - 优化版
- * 添加加载提示和健康检查
+ * 纸邦胶业智能客服聊天组件 - 高稳定性版
+ * 优化离线问题，增强连接稳定性
  */
 (function() {
   'use strict';
@@ -10,15 +10,20 @@
     API_URL: 'https://paperbagglue-chat-v1.fly.dev/api/chat',
     WIDGET_ID: 'chat-widget-container',
     AUTO_OPEN_DELAY: 3000, // 3秒后自动打开
-    API_TIMEOUT: 15000, // 15秒超时（增加超时时间）
-    KEEP_ALIVE_INTERVAL: 2 * 60 * 1000, // 2分钟保持活跃（更频繁的保活）
-    VERSION: '2.2', // 版本号，用于强制刷新缓存
+    API_TIMEOUT: 30000, // 30秒超时（增加）
+    KEEP_ALIVE_INTERVAL: 30 * 1000, // 30秒保持活跃（更频繁）
+    HEALTH_CHECK_INTERVAL: 20 * 1000, // 20秒健康检查（更频繁）
+    MAX_RETRIES: 5, // 最大重试次数（增加）
+    RETRY_DELAY: 2000, // 重试延迟 2 秒
+    VERSION: '3.0', // 版本号，用于强制刷新缓存
   };
 
   // 生成会话ID
   let sessionId = 'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
   let isServiceAvailable = false;
   let keepAliveTimer = null;
+  let healthCheckTimer = null;
+  let connectionAttempts = 0;
 
   // ==================== 创建HTML结构 ====================
   function createWidgetHTML() {
@@ -198,51 +203,18 @@
         /* 头部右侧按钮容器 */
         .chat-header-actions {
           display: flex !important;
-          gap: 4px !important;
           align-items: center !important;
-        }
-
-        /* 放大按钮 */
-        .expand-btn {
-          background: none !important;
-          border: none !important;
-          color: white !important;
-          cursor: pointer !important;
-          width: 26px !important;
-          height: 26px !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          border-radius: 50% !important;
-          transition: background 0.2s !important;
-        }
-
-        .expand-btn:hover {
-          background: rgba(255, 255, 255, 0.2) !important;
-        }
-
-        .expand-btn svg {
-          width: 18px !important;
-          height: 18px !important;
-        }
-
-        /* 放大状态样式 */
-        #chat-window.expanded {
-          width: 760px !important;
-          height: 600px !important;
-          bottom: 50px !important;
-          right: 50% !important;
-          transform: translateX(50%) !important;
         }
 
         .close-btn {
-          background: none !important;
+          background: transparent !important;
           border: none !important;
           color: white !important;
           font-size: 24px !important;
           cursor: pointer !important;
-          width: 26px !important;
-          height: 26px !important;
+          padding: 0 !important;
+          width: 30px !important;
+          height: 30px !important;
           display: flex !important;
           align-items: center !important;
           justify-content: center !important;
@@ -258,35 +230,32 @@
         .chat-messages {
           flex: 1 !important;
           overflow-y: auto !important;
-          padding: 20px !important;
-          background: #f8f9fa !important;
+          padding: 16px !important;
+          background: #f9f9f9 !important;
         }
 
-        #welcome-message {
-          margin-bottom: 20px !important;
-        }
-
+        /* 消息样式 */
         .message {
-          display: flex !important;
-          margin-bottom: 16px !important;
+          margin-bottom: 12px !important;
+          max-width: 85% !important;
           animation: fadeIn 0.3s ease !important;
         }
 
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .bot-message {
-          justify-content: flex-start !important;
+          align-self: flex-start !important;
         }
 
         .user-message {
-          justify-content: flex-end !important;
+          align-self: flex-end !important;
+          margin-left: auto !important;
         }
 
         .message-content {
-          max-width: 80% !important;
           padding: 12px 16px !important;
           border-radius: 12px !important;
           font-size: 14px !important;
@@ -315,32 +284,9 @@
           margin: 0 !important;
         }
 
-        /* 加载样式 */
-        .loading-content {
-          display: flex !important;
-          align-items: center !important;
-          gap: 12px !important;
-          padding: 12px 16px !important;
-        }
-
-        .loading-spinner {
-          width: 20px !important;
-          height: 20px !important;
-          border: 2px solid #f3f3f3 !important;
-          border-top: 2px solid #00A859 !important;
-          border-radius: 50% !important;
-          animation: spin 1s linear infinite !important;
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        #loading-text {
-          margin: 0 !important;
-          color: #666 !important;
-          font-size: 13px !important;
+        /* 欢迎消息 */
+        #welcome-message {
+          margin-bottom: 16px !important;
         }
 
         /* 输入区域 */
@@ -353,7 +299,6 @@
           align-items: flex-end !important;
         }
 
-        /* Hide upload button - image upload is disabled */
         #upload-btn {
           display: none !important;
         }
@@ -399,103 +344,36 @@
           cursor: not-allowed !important;
         }
 
-        #send-btn svg {
-          width: 18px !important;
-          height: 18px !important;
+        /* 滚动条样式 */
+        .chat-messages::-webkit-scrollbar {
+          width: 6px !important;
         }
 
-        /* 图片消息样式 */
-        .message-image {
-          max-width: 250px !important;
-          max-height: 250px !important;
-          border-radius: 8px !important;
-          cursor: pointer !important;
-          transition: transform 0.2s !important;
+        .chat-messages::-webkit-scrollbar-track {
+          background: #f1f1f1 !important;
         }
 
-        .message-image:hover {
-          transform: scale(1.02) !important;
+        .chat-messages::-webkit-scrollbar-thumb {
+          background: #ddd !important;
+          border-radius: 3px !important;
         }
 
-        /* 加载动画 - Larry is typing */
-        .typing-indicator-text {
-          display: flex !important;
-          align-items: center !important;
-          gap: 6px !important;
-          padding: 12px 16px !important;
-          font-size: 14px !important;
-          color: #333 !important;
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+          background: #ccc !important;
         }
 
-        .typing-indicator-dots {
-          display: flex !important;
-          gap: 4px !important;
-        }
-
-        .typing-indicator-dots span {
-          width: 8px !important;
-          height: 8px !important;
-          background: #999 !important;
-          border-radius: 50% !important;
-          animation: typing 1.4s infinite ease-in-out !important;
-        }
-
-        .typing-indicator-dots span:nth-child(1) {
-          animation-delay: -0.32s !important;
-        }
-
-        .typing-indicator-dots span:nth-child(2) {
-          animation-delay: -0.16s !important;
-        }
-
-        @keyframes typing {
-          0%, 80%, 100% {
-            transform: scale(0.6);
-            opacity: 0.5;
-          }
-          40% {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
-        /* 移动端适配 */
+        /* 响应式设计 */
         @media (max-width: 480px) {
-          #chat-widget-container {
-            bottom: 20px !important;
+          #chat-window {
+            width: 320px !important;
+            height: 450px !important;
+            bottom: 90px !important;
             right: 20px !important;
           }
 
           #chat-toggle-btn {
-            width: 55px !important;
-            height: 55px !important;
             bottom: 20px !important;
             right: 20px !important;
-          }
-
-          #chat-window {
-            width: calc(100vw - 40px) !important;
-            height: calc(100vh - 120px) !important;
-            bottom: 80px !important;
-            right: 20px !important;
-            border-radius: 12px !important;
-          }
-
-          .chat-header {
-            padding: 6px 10px !important;
-          }
-
-          .chat-logo {
-            width: 24px !important;
-            height: 24px !important;
-          }
-
-          .chat-header-info h3 {
-            font-size: 13px !important;
-          }
-
-          .online-status {
-            font-size: 9px !important;
           }
         }
       </style>
@@ -504,8 +382,8 @@
 
   // ==================== 功能函数 ====================
 
-  // 健康检查 - 增加重试机制
-  async function healthCheck(retryCount = 2) {
+  // 增强的健康检查 - 带重试和指数退避
+  async function healthCheck(retryCount = CONFIG.MAX_RETRIES) {
     for (let i = 0; i < retryCount; i++) {
       try {
         const controller = new AbortController();
@@ -516,28 +394,40 @@
         const response = await fetch(healthUrl, {
           method: 'GET',
           signal: controller.signal,
-          cache: 'no-cache' // 禁用缓存
+          cache: 'no-cache'
         });
 
         clearTimeout(timeoutId);
 
         if (response.ok) {
-          isServiceAvailable = true;
-          updateConnectionStatus("We're Online");
-          return true;
+          const data = await response.json();
+          if (data.status === 'healthy') {
+            isServiceAvailable = true;
+            connectionAttempts = 0;
+            updateConnectionStatus("We're Online");
+            return true;
+          }
         }
       } catch (error) {
-        console.log(`Health check attempt ${i + 1} failed:`, error);
-        // 如果不是最后一次尝试，等待 1 秒后重试
+        console.log(`Health check attempt ${i + 1}/${retryCount} failed:`, error.message);
+        // 指数退避：等待时间逐渐增加
         if (i < retryCount - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          const waitTime = Math.min(1000 * Math.pow(2, i), 5000);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
         }
       }
     }
 
     // 所有尝试都失败
     isServiceAvailable = false;
+    connectionAttempts++;
     updateConnectionStatus('Connecting...');
+    
+    // 如果连续失败超过 3 次，显示离线状态
+    if (connectionAttempts >= 3) {
+      updateConnectionStatus('Offline');
+    }
+    
     return false;
   }
 
@@ -545,24 +435,34 @@
   function updateConnectionStatus(status) {
     const statusEl = document.getElementById('connection-status');
     if (statusEl) {
-      // 显示We're Online而不是Online
-      if (status === 'Online') {
-        statusEl.textContent = "We're Online";
-      } else {
-        statusEl.textContent = status;
-      }
+      statusEl.textContent = status;
       
-      if (status === 'Online') {
-        statusEl.style.color = '#ffffff'; // 白色，更清晰
+      if (status === "We're Online") {
+        statusEl.style.color = '#ffffff';
       } else if (status === 'Offline') {
-        statusEl.style.color = '#ffcccc'; // 淡红色
+        statusEl.style.color = '#ffcccc';
       } else {
-        statusEl.style.color = '#ffffff'; // 白色
+        statusEl.style.color = '#ffffff';
       }
     }
   }
 
-  // Keep-alive定时器
+  // 启动定期健康检查
+  function startHealthCheck() {
+    if (healthCheckTimer) {
+      clearInterval(healthCheckTimer);
+    }
+    
+    // 立即执行一次
+    healthCheck();
+    
+    // 每 20 秒检查一次
+    healthCheckTimer = setInterval(() => {
+      healthCheck();
+    }, CONFIG.HEALTH_CHECK_INTERVAL);
+  }
+
+  // Keep-alive 定时器
   function startKeepAlive() {
     if (keepAliveTimer) {
       clearInterval(keepAliveTimer);
@@ -570,10 +470,19 @@
     
     keepAliveTimer = setInterval(async () => {
       console.log('Keep-alive ping...');
-      await healthCheck();
+      await healthCheck(2); // 保活时只重试 2 次
     }, CONFIG.KEEP_ALIVE_INTERVAL);
   }
 
+  // 滚动到底部
+  function scrollToBottom() {
+    const messagesContainer = document.getElementById('chat-messages');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  }
+
+  // 切换聊天窗口
   function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
     const toggleBtn = document.getElementById('chat-toggle-btn');
@@ -581,6 +490,11 @@
     if (chatWindow.classList.contains('active')) {
       chatWindow.classList.remove('active');
       toggleBtn.style.display = 'flex';
+      
+      // 关闭窗口时停止健康检查
+      if (healthCheckTimer) {
+        clearInterval(healthCheckTimer);
+      }
     } else {
       chatWindow.classList.add('active');
       toggleBtn.style.display = 'none';
@@ -589,16 +503,12 @@
         document.getElementById('chat-input').focus();
       }, 300);
 
-      // 窗口打开时，检查服务状态
-      healthCheck();
+      // 窗口打开时，启动健康检查
+      startHealthCheck();
     }
   }
 
-  function toggleExpand() {
-    const chatWindow = document.getElementById('chat-window');
-    chatWindow.classList.toggle('expanded');
-  }
-
+  // 显示输入提示
   function handleKeyDown(event) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
@@ -606,6 +516,7 @@
     }
   }
 
+  // 发送消息
   async function send() {
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
@@ -616,19 +527,15 @@
     input.value = '';
   }
 
-  async function sendText(message, retryCount = 0, maxRetries = 2) {
+  // 发送文本消息 - 增强重试机制
+  async function sendText(message, retryCount = 0) {
     const input = document.getElementById('chat-input');
     
     input.disabled = true;
     document.getElementById('send-btn').disabled = true;
 
-    if (!message.startsWith('[Image uploaded]') && retryCount === 0) {
-      addMessage(message, 'user');
-    }
-
-    // 只有第一次调用时显示加载指示器
     if (retryCount === 0) {
-      showTypingIndicator();
+      addMessage(message, 'user');
     }
 
     try {
@@ -655,34 +562,32 @@
 
       const data = await response.json();
 
-      removeTypingIndicator();
-
       if (data.response) {
         addMessage(data.response, 'bot');
         isServiceAvailable = true;
+        connectionAttempts = 0;
         updateConnectionStatus("We're Online");
       } else {
         throw new Error('No response from server');
       }
 
     } catch (error) {
-      console.error('Error:', error, 'Retry:', retryCount + 1, '/', maxRetries);
+      console.error('Error:', error, 'Retry:', retryCount + 1, '/', CONFIG.MAX_RETRIES);
 
       // 如果还有重试机会，自动重试
-      if (retryCount < maxRetries) {
-        removeTypingIndicator();
-        // 等待 2 秒后重试
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        return sendText(message, retryCount + 1, maxRetries);
+      if (retryCount < CONFIG.MAX_RETRIES - 1) {
+        // 指数退避
+        const waitTime = Math.min(2000 * Math.pow(2, retryCount), 10000);
+        console.log(`Retrying in ${waitTime}ms...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+        return sendText(message, retryCount + 1);
       }
 
       // 所有重试都失败
-      removeTypingIndicator();
-
-      // 超时或错误，显示备用联系方式
       addMessage(`Sorry, the service is temporarily unavailable. This might be due to high traffic or the service is waking up.\n\nPlease try again in a moment, or contact me directly:\n\n📱 WhatsApp: +8613323273311\n📧 Email: LarryChen@paperbagglue.com`, 'bot');
       
       isServiceAvailable = false;
+      connectionAttempts++;
       updateConnectionStatus('Offline');
     } finally {
       input.disabled = false;
@@ -691,6 +596,7 @@
     }
   }
 
+  // 添加消息
   function addMessage(content, type) {
     const messagesContainer = document.getElementById('chat-messages');
     const messageDiv = document.createElement('div');
@@ -708,6 +614,7 @@
     scrollToBottom();
   }
 
+  // 处理消息内容
   function processMessageContent(content) {
     let processed = content
       .replace(/&/g, '&amp;')
@@ -719,113 +626,56 @@
     // 处理换行
     processed = processed.replace(/\n/g, '<br>');
 
-    // 处理链接（自动链接）
+    // 处理链接
     processed = processed.replace(
-      /(https?:\/\/[^\s]+)/g,
-      '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #00A859; text-decoration: underline; font-weight: 500;">$1</a>'
+      /(https?:\/\/[^\s<]+)/g,
+      '<a href="$1" target="_blank" style="color: #00A859; text-decoration: underline;">$1</a>'
     );
 
-    // 处理加粗文本（**文本**）
+    // 处理 WhatsApp 号码
     processed = processed.replace(
-      /\*\*([^*]+)\*\*/g,
-      '<strong>$1</strong>'
+      /(\+86[\d\s\-]{10,})/g,
+      '<a href="https://wa.me/$1" target="_blank" style="color: #00A859; text-decoration: underline;">$1</a>'
     );
 
     return processed;
   }
 
-  function showTypingIndicator() {
-    const messagesContainer = document.getElementById('chat-messages');
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'message bot-message';
-    typingDiv.id = 'typing-indicator';
-
-    typingDiv.innerHTML = `
-      <div class="message-content">
-        <div class="typing-indicator-text">
-          Larry is typing
-          <div class="typing-indicator-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </div>
-    `;
-
-    messagesContainer.appendChild(typingDiv);
-    scrollToBottom();
-  }
-
-  function removeTypingIndicator() {
-    const typingIndicator = document.getElementById('typing-indicator');
-    if (typingIndicator) {
-      typingIndicator.remove();
+  // 监听输入
+  function setupInputListeners() {
+    const input = document.getElementById('chat-input');
+    if (input) {
+      input.addEventListener('keydown', handleKeyDown);
+      input.addEventListener('input', function() {
+        const sendBtn = document.getElementById('send-btn');
+        sendBtn.disabled = !this.value.trim();
+      });
     }
   }
 
-  function scrollToBottom() {
-    const messagesContainer = document.getElementById('chat-messages');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-
-  // ==================== 初始化 ====================
+  // 初始化组件
   function init() {
-    // 检查是否已加载
-    if (document.getElementById(CONFIG.WIDGET_ID)) {
-      console.log('Chat widget already loaded');
-      return;
-    }
+    // 创建 HTML 结构
+    const widgetHTML = createWidgetHTML();
+    const widgetCSS = createWidgetCSS();
+    
+    // 插入到页面
+    document.head.insertAdjacentHTML('beforeend', widgetCSS);
+    document.body.insertAdjacentHTML('beforeend', widgetHTML);
 
-    // 插入CSS
-    document.head.insertAdjacentHTML('beforeend', createWidgetCSS());
+    // 设置输入监听
+    setupInputListeners();
 
-    // 插入HTML
-    document.body.insertAdjacentHTML('beforeend', createWidgetHTML());
+    // 启动保活
+    startKeepAlive();
 
-    // 绑定事件
-    const chatInput = document.getElementById('chat-input');
-    chatInput.addEventListener('input', function() {
-      const sendBtn = document.getElementById('send-btn');
-      sendBtn.disabled = this.value.trim() === '';
-    });
-
-    chatInput.addEventListener('keydown', handleKeyDown);
-
-    // 暴露全局API
+    // 暴露到全局
     window.chatWidget = {
       toggle: toggleChat,
-      toggleExpand: toggleExpand,
-      send: send,
-      sendText: sendText,
-      open: function() {
-        if (!document.getElementById('chat-window').classList.contains('active')) {
-          toggleChat();
-        }
-      },
-      close: function() {
-        if (document.getElementById('chat-window').classList.contains('active')) {
-          toggleChat();
-        }
-      },
-      healthCheck: healthCheck
+      send: send
     };
 
-    console.log('PaperBagGlue Chat Widget loaded successfully');
-
-    // 启动健康检查和keep-alive
-    healthCheck().then(() => {
-      startKeepAlive();
-    });
-
-    // 3秒后自动打开聊天窗口
-    setTimeout(function() {
-      // 检查用户是否还没有打开过
-      if (!document.getElementById('chat-window').classList.contains('active')) {
-        window.chatWidget.open();
-        console.log('Auto-opened chat widget');
-      }
-    }, CONFIG.AUTO_OPEN_DELAY);
+    console.log('Chat Widget initialized (v' + CONFIG.VERSION + ')');
   }
 
   // 页面加载完成后初始化
@@ -834,5 +684,4 @@
   } else {
     init();
   }
-
 })();
